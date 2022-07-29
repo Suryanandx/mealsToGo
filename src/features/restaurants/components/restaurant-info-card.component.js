@@ -4,9 +4,20 @@ import styled from 'styled-components/native'
 
 
 const Title = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading} ;
+  color: ${(props) => props.theme.colors.ui.primary};
+  font-size: ${(props) => props.theme.fontSizes.body }
+`
+
+const Address = styled.Text`
   font-family: ${(props) => props.theme.fonts.body} ;
+  color: ${(props) => props.theme.colors.ui.primary};
+  font-size: ${(props) => props.theme.fontSizes.caption }
+`
+
+
+const Info = styled.View`
   padding: ${(props) => props.theme.space[3]};
-  color: ${(props) => props.theme.colors.ui.primary}
 `
 
 const RestaurantCard = styled(Card)`
@@ -30,7 +41,11 @@ function RestaurantInfoCard({restaurant = {}}) {
   return (
     <RestaurantCard elevation={5} >
         <RestaurantCardCover key={name}  source={{uri: photos[0]}}/>
-        <Title>{name}</Title>
+        <Info>
+           <Title>{name}</Title>
+           <Address>{address}</Address>
+        </Info>
+       
         
     </RestaurantCard>
   )
