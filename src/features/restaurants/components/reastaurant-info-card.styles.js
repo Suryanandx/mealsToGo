@@ -25,11 +25,13 @@ justify-content: flex-end;
 
 export const RestaurantCard = styled(Card)`
 background-color : white;
+
 `
 
 export const RestaurantCardCover = styled(Card.Cover)`
 background-color : white;
 padding: ${(props) => props.theme.space[3]};
+
 
 `
 export const Icon = styled.Image`
