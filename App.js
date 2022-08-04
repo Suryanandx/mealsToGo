@@ -8,7 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { restaurantsRequest } from './src/services/restaurants/mock/restaurants.service';
+import { RestaurantContextProvider } from './src/services/restaurants/mock/restaurants.context';
+import { LocationProvider } from './src/services/location/location.context';
 
 const TAB_ICON = {
     Restaurants: "restaurant",
@@ -27,8 +28,6 @@ const Maps = () => {
     <Text>Maps here</Text>
   )
 }
-
-restaurantsRequest()
 
 const Tab = createBottomTabNavigator();
 
@@ -61,7 +60,9 @@ const screenOptions = ({route}) => {
   return (
     <>
     <ThemeProvider theme={theme}>
-      <NavigationContainer >
+    <LocationProvider>
+      <RestaurantContextProvider>
+       <NavigationContainer >
         <Tab.Navigator
           screenOptions={screenOptions} 
         >
@@ -70,6 +71,10 @@ const screenOptions = ({route}) => {
           <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
       </NavigationContainer>
+    </RestaurantContextProvider>
+    </LocationProvider>
+    
+     
     </ThemeProvider>
 
   </>

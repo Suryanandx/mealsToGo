@@ -6,13 +6,18 @@ import { Text } from '../../../components/text.component'
 import { Icon, Info, Rating, RestaurantCard, RestaurantCardCover, Section, SectionEnd } from './reastaurant-info-card.styles'
 
 function RestaurantInfoCard({restaurant = {}}) {
-   const {name = "Some Restaurant",
-    icon="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Circle-icons-water.svg/2048px-Circle-icons-water.svg.png", 
-    photos = [ "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80"],
-    address = "Some random street", 
+  const {
+    name = "Some Restaurant",
+    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    photos = [
+      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
+    ],
+    vicinity = "100 some random street",
     isOpenNow = true,
-    rating = 4, 
-    isClosedTemporarily=false} = restaurant
+    rating = 4,
+    isClosedTemporarily = true,
+  } = restaurant;
+
 
     const ratingArray = Array.from(new Array(Math.floor(rating)))
 
@@ -24,18 +29,15 @@ function RestaurantInfoCard({restaurant = {}}) {
            <Section>
                <Rating>
                {
-             ratingArray.map(() => (
-               <SvgXml width={20} height={20} xml={star}/>
+             ratingArray.map((_,idx) => (
+               <SvgXml key={`star-${name}-${idx}`} width={20} height={20} xml={star}/>
              ))
            }
            </Rating>
            <SectionEnd>
-
-            {
-              !isClosedTemporarily && ( <Text variant="error" >
-                CLOSED TEMPORARILY
-              </Text>)
-            }
+           {isClosedTemporarily && (
+              <Text variant="error">CLOSED TEMPORARILY</Text>
+            )}
            <Spacer position="left" size="large">
               {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
            </Spacer>
@@ -48,7 +50,7 @@ function RestaurantInfoCard({restaurant = {}}) {
            </Section>
          
          
-           <Text variant="label">{address}</Text>
+           <Text variant="label">{vicinity}</Text>
 
         </Info>
     </RestaurantCard>
