@@ -1,7 +1,7 @@
 
-import {  StyleSheet, FlatList, View} from 'react-native';
+import {FlatList, TouchableOpacity} from 'react-native';
 import {useContext} from 'react'
-import {Colors, Searchbar} from 'react-native-paper'
+import {Colors} from 'react-native-paper'
 import styled from 'styled-components/native';
 import { Spacer } from '../../../components/spacer.component';
 import { SafeArea } from '../../../components/utility/safe-area.component';
@@ -9,6 +9,7 @@ import { RestaurantContext } from '../../../services/restaurants/mock/restaurant
 import RestaurantInfoCard from '../components/restaurant-info-card.component';
 import { ActivityIndicator } from 'react-native-paper';
 import Search from '../components/search.component';
+
 
 
 
@@ -28,9 +29,9 @@ const LoadingContainer = styled.View`
   left: 50%
 `
 
-export const RestaurantScreen = () => {
+export const RestaurantScreen = ({navigation}) => {
   const {restaurants, isLoading, error} = useContext(RestaurantContext)
-
+  
   return(
   <SafeArea>
   {
@@ -50,22 +51,14 @@ export const RestaurantScreen = () => {
       renderItem={({item}) => {
       
         return(
-        <Spacer position="bottom" size="large">
+          <TouchableOpacity onPress={() => navigation.navigate("RestaurantDetail", {restaurant: item})}>
+              <Spacer position="bottom" size="large">
           <RestaurantInfoCard key={item.id} restaurant={item} />
         </Spacer>
+          </TouchableOpacity>
+      
       )}}
       keyExtractor={(item) => item.name}
     />
   </SafeArea>
 )};
-
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
-  
