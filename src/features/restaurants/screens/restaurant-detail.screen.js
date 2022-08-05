@@ -12,9 +12,6 @@ const RestaurantDetail = ({route}) => {
     const {restaurant} = route.params
   return (
     <SafeArea>
-    
-
-    
         <RestaurantInfoCard restaurant={restaurant}/>
         <ScrollView>
         <List.Accordion

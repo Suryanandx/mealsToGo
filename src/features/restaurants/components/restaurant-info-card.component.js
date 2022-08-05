@@ -4,6 +4,7 @@ import open from '../../../../assets/open'
 import { Spacer } from '../../../components/spacer.component'
 import { Text } from '../../../components/text.component'
 import { Icon, Info, Rating, RestaurantCard, RestaurantCardCover, Section, SectionEnd } from './reastaurant-info-card.styles'
+import Favourite from '../../../components/favourite/favourite.component'
 
 function RestaurantInfoCard({restaurant = {}}) {
 
@@ -24,6 +25,7 @@ function RestaurantInfoCard({restaurant = {}}) {
 
   return (
     <RestaurantCard elevation={5} >
+      <Favourite restaurant={restaurant}/>
         <RestaurantCardCover key={name}  source={{uri: photos[0]}}/>
         <Info>
            <Text variant="body">{name}</Text>
