@@ -1,11 +1,17 @@
 import { useFonts as useOswald, Oswald_400Regular } from '@expo-google-fonts/oswald';
 import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { RestaurantNavigator } from './restaurants.navigator';
 import MapScreen from '../../features/map/screens/map.screen';
+import { AuthenticationContext } from '../../services/authentication/authentication.context';
+import {useContext} from 'react'
+import { SafeArea } from '../../components/utility/safe-area.component';
+import { Navigation } from '.';
+import { FavouriteContextProvider } from '../../services/favourites/favourites.context';
+import { LocationProvider } from '../../services/location/location.context';
+import { RestaurantContextProvider } from '../../services/restaurants/mock/restaurants.context';
 
 const TAB_ICON = {
     Restaurants: "restaurant",
@@ -13,9 +19,13 @@ const TAB_ICON = {
     Settings: 'ios-settings'
 }
 
-const Settings = () => {
+const Settings = ({navigation}) => {
+  const {onLogout} = useContext(AuthenticationContext)
   return  (
-    <Text>Settings here</Text>
+    <SafeArea>
+      <Button onPress={() => onLogout()}>Logout</Button>
+    </SafeArea>
+    
   )
 }
 
@@ -53,7 +63,9 @@ const screenOptions = ({route}) => {
 
 
     return (
-        <NavigationContainer >
+      <FavouriteContextProvider>
+      <LocationProvider>
+        <RestaurantContextProvider>
         <Tab.Navigator
           screenOptions={screenOptions} 
         >
@@ -61,6 +73,9 @@ const screenOptions = ({route}) => {
           <Tab.Screen name="Map" component={MapScreen} />
           <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
-      </NavigationContainer>
+        </RestaurantContextProvider>
+    </LocationProvider>
+   </FavouriteContextProvider>
+   
     )
 }
